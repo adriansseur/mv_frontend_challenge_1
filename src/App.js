@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux"
-import {increment, decrement, validate} from "./actions"
+import { increment, decrement, validate } from "./actions"
+import bootstrap from "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function App() {
   const balance = useSelector(state => state.balance)
@@ -19,15 +21,45 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {/* balance can be improved to have a comma when needed*/}
-      <h1>Balance: ${parseFloat(balance).toFixed(2)}</h1>
-      <input onChange={processInput} className="input" type="text" />
-      <br />
-      <button onClick={() => dispatch(increment(isValid))}>Deposit</button>
-      <br />
-      <button onClick={() => dispatch(decrement(isValid))}>Withdraw</button>
-    </div>
+    // background
+    <div className="bg-primary bg-opacity-25 vh-100 d-flex justify-content-center align-items-center">
+
+      {/* white container */}
+      <div className="row h-50 w-75 bg-white">
+
+        {/* balance container */}
+        <div className="row d-flex align-items-center">
+          <h1>Balance: ${parseFloat(balance).toFixed(2)}</h1>
+        </div>
+
+        {/* actions nav */}
+        <div className="row">
+          <div className="col">
+            <a data-bs-toggle="collapse" href="#depositContainer" role="button" aria-expanded="false" aria-controls="depositContainer">Deposit Funds</a>
+          </div>
+          <div className="col">
+            <a data-bs-toggle="collapse" href="#withdrawContainer" role="button" aria-expanded="false" aria-controls="withdrawContainer">Withdraw Funds</a>
+          </div>
+        </div>
+
+        {/* actions containers */}
+        <div className="collapse" id="depositContainer">
+          <form>
+              <input className="form-control" onChange={processInput} placeholder="Enter amount" type="text" />
+              <button className="btn btn-primary" onClick={() => dispatch(increment(isValid))}>Deposit</button>
+          </form>
+        </div>
+
+        <div className="collapse" id="withdrawContainer">
+        <form>
+              <input className="form-control" onChange={processInput} placeholder="Enter amount" type="text" />
+              <button className="btn btn-primary" onClick={() => dispatch(decrement(isValid))}>Withdraw</button>
+          </form>
+        </div>
+      </div>
+        
+        
+      </div>
   );
 }
 
