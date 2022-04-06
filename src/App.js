@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { increment, decrement, validate } from "./actions"
-import bootstrap from "bootstrap";
+import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"
+import {Button, Form} from "react-bootstrap"
 
 function App() {
   const balance = useSelector(state => state.balance)
@@ -35,31 +36,33 @@ function App() {
         {/* actions nav */}
         <div className="row">
           <div className="col">
-            <a data-bs-toggle="collapse" href="#depositContainer" role="button" aria-expanded="false" aria-controls="depositContainer">Deposit Funds</a>
+            <button className="btn btn-light" data-bs-toggle="collapse" type="button" data-bs-target="#depositContainer" role="button" aria-expanded="false" aria-controls="depositContainer">Deposit Funds</button>
           </div>
           <div className="col">
-            <a data-bs-toggle="collapse" href="#withdrawContainer" role="button" aria-expanded="false" aria-controls="withdrawContainer">Withdraw Funds</a>
+            <button className="btn btn-light" data-bs-toggle="collapse" type="button" data-bs-target="#withdrawContainer" role="button" aria-expanded="false" aria-controls="withdrawContainer">Withdraw Funds</button>
           </div>
         </div>
 
         {/* actions containers */}
         <div className="collapse" id="depositContainer">
-          <form>
-              <input className="form-control" onChange={processInput} placeholder="Enter amount" type="text" />
-              <button className="btn btn-primary" onClick={() => dispatch(increment(isValid))}>Deposit</button>
-          </form>
+          <Form>
+            <Form.Group className="mb-3" controlId="depositContainer">
+              <Form.Control onChange={processInput} placeholder="Enter amount" type="text" />
+              <Button onClick={() => dispatch(increment(isValid))}>Deposit</Button>
+            </Form.Group>
+          </Form>
         </div>
 
         <div className="collapse" id="withdrawContainer">
-        <form>
-              <input className="form-control" onChange={processInput} placeholder="Enter amount" type="text" />
-              <button className="btn btn-primary" onClick={() => dispatch(decrement(isValid))}>Withdraw</button>
-          </form>
+          <Form>
+            <Form.Group className="mb-3" controlId="withdrawContainer">
+              <Form.Control onChange={processInput} placeholder="Enter amount" type="text" />
+              <Button onClick={() => dispatch(decrement(isValid))}>Withdraw</Button>
+            </Form.Group>
+          </Form>
         </div>
       </div>
-        
-        
-      </div>
+    </div>
   );
 }
 
