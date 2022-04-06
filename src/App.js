@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { increment, decrement, validate } from "./actions"
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"
-import {Button, Form} from "react-bootstrap"
+import {Button, Form, Accordion} from "react-bootstrap"
 
 function App() {
   const balance = useSelector(state => state.balance)
@@ -33,34 +33,34 @@ function App() {
           <h1>Balance: ${parseFloat(balance).toFixed(2)}</h1>
         </div>
 
-        {/* actions nav */}
-        <div className="row">
-          <div className="col">
-            <button className="btn btn-light" data-bs-toggle="collapse" type="button" data-bs-target="#depositContainer" role="button" aria-expanded="false" aria-controls="depositContainer">Deposit Funds</button>
-          </div>
-          <div className="col">
-            <button className="btn btn-light" data-bs-toggle="collapse" type="button" data-bs-target="#withdrawContainer" role="button" aria-expanded="false" aria-controls="withdrawContainer">Withdraw Funds</button>
-          </div>
-        </div>
+        {/* Deposit / Withdraw Accordion */}
+        <Accordion>
 
-        {/* actions containers */}
-        <div className="collapse" id="depositContainer">
-          <Form>
-            <Form.Group className="mb-3" controlId="depositContainer">
-              <Form.Control onChange={processInput} placeholder="Enter amount" type="text" />
-              <Button onClick={() => dispatch(increment(isValid))}>Deposit</Button>
-            </Form.Group>
-          </Form>
-        </div>
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>Deposit</Accordion.Header>
+            <Accordion.Body>
+              <Form>
+                <Form.Group className="mb-3" controlId="depositContainer">
+                  <Form.Control onChange={processInput} placeholder="Enter amount" type="text" />
+                  <Button onClick={() => dispatch(increment(isValid))}>Deposit</Button>
+                </Form.Group>
+              </Form>
+            </Accordion.Body>
+          </Accordion.Item>
 
-        <div className="collapse" id="withdrawContainer">
-          <Form>
-            <Form.Group className="mb-3" controlId="withdrawContainer">
-              <Form.Control onChange={processInput} placeholder="Enter amount" type="text" />
-              <Button onClick={() => dispatch(decrement(isValid))}>Withdraw</Button>
-            </Form.Group>
-          </Form>
-        </div>
+          <Accordion.Item eventKey="1">
+            <Accordion.Header>Withdraw</Accordion.Header>
+            <Accordion.Body>
+              <Form>
+                <Form.Group className="mb-3" controlId="withdrawContainer">
+                  <Form.Control onChange={processInput} placeholder="Enter amount" type="text" />
+                  <Button onClick={() => dispatch(decrement(isValid))}>Withdraw</Button>
+                </Form.Group>
+              </Form>
+            </Accordion.Body>
+          </Accordion.Item>
+
+        </Accordion>
       </div>
     </div>
   );
