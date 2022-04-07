@@ -1,0 +1,21 @@
+#page-container {
+    overflow: hidden;
+}
+
+#bg-video {
+    opacity: 0.5;
+    transform: translate(-25%, -15%);
+    z-index: -10;
+}
+
+#main-container {
+    position: absolute;
+}
+
+@media (min-width: 1000px) {
+    #main-container {
+        max-width: 700px;
+        padding-right: 3rem !important;
+        padding-left: 3rem !important;
+    }
+}

@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from "react-redux"
 import { increment, decrement, validate } from "./actions"
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"
-import {Button, Form, Accordion} from "react-bootstrap"
+import { Button, Form, Accordion } from "react-bootstrap"
+import piggyBank from "./media/undraw_savings_re_eq4w.svg"
+import bgVideo from "./media/production ID_3945149.mp4"
 
 function App() {
   const balance = useSelector(state => state.balance)
@@ -23,18 +25,21 @@ function App() {
 
   return (
     // background
-    <div className="bg-primary bg-opacity-25 vh-100 d-flex justify-content-center align-items-center">
+    <div id="page-container" className="bg-opacity-25 vh-100 d-flex justify-content-center align-items-center">
+      <video id="bg-video" src={bgVideo} autoPlay muted loop playsInline></video>
 
       {/* white container */}
-      <div className="container w-75 bg-white pt-5 pe-4 pb-5 ps-4">
+      <div id="main-container" className="container w-75 bg-white bg-opacity-75 pt-5 pe-4 pb-5 ps-4">
 
         {/* balance container */}
         <div className="container mb-5">
           <div className="row">
-            <div className="col">
-              <h1>Balance: <br/>${parseFloat(balance).toFixed(2)}</h1>
+            <div className="col ps-0 d-flex align-items-center">
+              <h1 className="mb-0">Balance: <br/>${parseFloat(balance).toFixed(2)}</h1>
             </div>
-            <div className="col"></div>
+            <div className="col pe-0">
+              <img id="piggy-bank" className="mw-100" src={piggyBank} alt="" />
+            </div>
           </div>
           
         </div>
