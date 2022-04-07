@@ -26,11 +26,17 @@ function App() {
     <div className="bg-primary bg-opacity-25 vh-100 d-flex justify-content-center align-items-center">
 
       {/* white container */}
-      <div className="row h-50 w-75 bg-white">
+      <div className="container w-75 bg-white pt-5 pe-4 pb-5 ps-4">
 
         {/* balance container */}
-        <div className="row d-flex align-items-center">
-          <h1>Balance: ${parseFloat(balance).toFixed(2)}</h1>
+        <div className="container mb-5">
+          <div className="row">
+            <div className="col">
+              <h1>Balance: <br/>${parseFloat(balance).toFixed(2)}</h1>
+            </div>
+            <div className="col"></div>
+          </div>
+          
         </div>
 
         {/* Deposit / Withdraw Accordion */}
@@ -41,8 +47,15 @@ function App() {
             <Accordion.Body>
               <Form>
                 <Form.Group className="mb-3" controlId="depositContainer">
-                  <Form.Control onChange={processInput} placeholder="Enter amount" type="text" />
-                  <Button onClick={() => dispatch(increment(isValid))}>Deposit</Button>
+                  <Form.Label>Enter Amount:</Form.Label>
+                  <div className="row">
+                    <div className="col pe-0">
+                      <Form.Control className="" onChange={processInput} type="text" />
+                    </div>
+                    <div className="col ps-0">
+                      <Button className="w-100" onClick={() => dispatch(increment(isValid))}>Deposit</Button>
+                    </div>
+                  </div>
                 </Form.Group>
               </Form>
             </Accordion.Body>
@@ -53,8 +66,15 @@ function App() {
             <Accordion.Body>
               <Form>
                 <Form.Group className="mb-3" controlId="withdrawContainer">
-                  <Form.Control onChange={processInput} placeholder="Enter amount" type="text" />
-                  <Button onClick={() => dispatch(decrement(isValid))}>Withdraw</Button>
+                  <Form.Label>Enter Amount:</Form.Label>
+                  <div className="row">
+                    <div className="col pe-0">
+                      <Form.Control className="" onChange={processInput} type="text" />
+                    </div>
+                    <div className="col ps-0">
+                      <Button className="w-100" onClick={() => dispatch(decrement(isValid))}>Withdraw</Button>
+                    </div>
+                  </div>
                 </Form.Group>
               </Form>
             </Accordion.Body>
