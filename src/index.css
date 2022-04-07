@@ -10,6 +10,14 @@
 
 #main-container {
     position: absolute;
+    box-shadow:
+    0px 0.1px 1.8px -4px rgba(0, 0, 0, 0.037),
+    0px 0.3px 4.3px -4px rgba(0, 0, 0, 0.053),
+    0px 0.5px 8.1px -4px rgba(0, 0, 0, 0.065),
+    0px 0.9px 14.5px -4px rgba(0, 0, 0, 0.077),
+    0px 1.7px 27.2px -4px rgba(0, 0, 0, 0.093),
+    0px 4px 65px -4px rgba(0, 0, 0, 0.13);
+    border-radius: 10px;
 }
 
 @media (min-width: 1000px) {

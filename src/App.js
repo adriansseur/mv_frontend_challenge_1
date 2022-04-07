@@ -12,7 +12,6 @@ function App() {
   const isValid = useSelector(state => state.isValid)
   const dispatch = useDispatch()
   const riderHead = React.useRef()
-  const head = gsap.utils.selector(".head-elem")
   const riderRightArm = React.useRef()
   const riderLeftArm = React.useRef()
   const coin = React.useRef()
@@ -32,6 +31,7 @@ function App() {
 
   function handleDeposit() {
     dispatch(increment(isValid))
+    // deposit animation
     if (isValid) {
       gsap.set(riderRightArm.current, { transformOrigin: "left", zIndex: 10 })
       gsap.set(coin.current, {transformOrigin: "center"})
@@ -47,6 +47,7 @@ function App() {
 
   function handleWithdraw() {
     dispatch(decrement(isValid))
+    // withdraw animation
     if (isValid) {
       gsap.set(riderLeftArm.current, { transformOrigin: "left" })
       gsap.set(riderRightArm.current, { transformOrigin: "left" })
@@ -61,7 +62,7 @@ function App() {
         .to(riderHead.current, { rotate: 0 })
         .to(riderLeftArm.current, { rotate: 0 }, "<")
         .to(riderRightArm.current, { rotate: 0 }, "<")
-        .fromTo(coin.current, { y: 0, x: 0}, {scale: 1})
+        .fromTo(coin.current, { y: 0, x: 0}, {scale: 1}, "<")
     }
   }
 
@@ -71,7 +72,7 @@ function App() {
       <video id="bg-video" src={bgVideo} autoPlay muted loop playsInline></video>
 
       {/* white container */}
-      <div id="main-container" className="container w-75 bg-white bg-opacity-75 pt-5 pe-4 pb-5 ps-4">
+      <div id="main-container" className="bg-white bg-opacity-75 container w-75 pt-5 pe-4 pb-5 ps-4">
 
         {/* balance container */}
         <div className="container mb-5">
