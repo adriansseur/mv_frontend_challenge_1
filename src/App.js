@@ -36,7 +36,7 @@ function App() {
     gsap.set(riderRightArm.current, { transformOrigin: "left", zIndex: 10 })
     gsap.set(coin.current, {transformOrigin: "center"})
     dtl.to(riderRightArm.current, { rotate: 50 })
-      .fromTo(coin.current, {scale: 1}, { y: 150, scale: 0}, "<")
+      .fromTo(coin.current, {scale: 1}, { y: 100, scale: 0}, "<")
       .to(riderRightArm.current, { rotate: -90 })
       .to(riderLeftArm.current, {rotate: -40}, "<")
       .to(riderRightArm.current, { rotate: 0 })
