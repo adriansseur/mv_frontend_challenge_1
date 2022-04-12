@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { Button, Form, Accordion } from "react-bootstrap"
 import bgVideo from "./media/production ID_3945149.mp4"
 import gsap from "gsap";
+import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 
 function App() {
   const balance = useSelector(state => state.balance)
@@ -32,38 +33,53 @@ function App() {
   function handleDeposit() {
     dispatch(increment(isValid))
     // deposit animation
-    if (isValid) {
-      gsap.set(riderRightArm.current, { transformOrigin: "left", zIndex: 10 })
-      gsap.set(coin.current, {transformOrigin: "center"})
-      dtl.to(riderRightArm.current, { rotate: 50 })
-        .fromTo(coin.current, {scale: 1}, { y: 150, scale: 0}, "<")
-        .to(riderRightArm.current, { rotate: -90 })
-        .to(riderLeftArm.current, {rotate: -40}, "<")
-        .to(riderRightArm.current, { rotate: 0 })
-        .to(riderLeftArm.current, { rotate: 0 }, "<")
-        .fromTo(coin.current, { y: 0, scale: 0 }, { scale: 1, opacity: 1 }, "<")
-    }
+    gsap.set(riderRightArm.current, { transformOrigin: "left", zIndex: 10 })
+    gsap.set(coin.current, {transformOrigin: "center"})
+    dtl.to(riderRightArm.current, { rotate: 50 })
+      .fromTo(coin.current, {scale: 1}, { y: 150, scale: 0}, "<")
+      .to(riderRightArm.current, { rotate: -90 })
+      .to(riderLeftArm.current, {rotate: -40}, "<")
+      .to(riderRightArm.current, { rotate: 0 })
+      .to(riderLeftArm.current, { rotate: 0 }, "<")
+      .fromTo(coin.current, { y: 0, scale: 0 }, { scale: 1, opacity: 1 }, "<")
   }
 
   function handleWithdraw() {
     dispatch(decrement(isValid))
     // withdraw animation
-    if (isValid) {
-      gsap.set(riderLeftArm.current, { transformOrigin: "left" })
-      gsap.set(riderRightArm.current, { transformOrigin: "left" })
-      gsap.set(coin.current, { transformOrigin: "center" })
-      gsap.set(riderHead.current, { transformOrigin: "bottom center" })
-      wtl.to(riderLeftArm.current, { rotate: -30 })
-        .to(coin.current, { y: -215, x: -145 }, "<")
-        .to(coin.current, { scale: 0 }, "<50%")
-        .to(riderRightArm.current, { rotate: 90 })
-        .to(riderLeftArm.current, { rotate: 80 }, "<80%")
-        .to(riderHead.current, { rotate: 30 })
-        .to(riderHead.current, { rotate: 0 })
-        .to(riderLeftArm.current, { rotate: 0 }, "<")
-        .to(riderRightArm.current, { rotate: 0 }, "<")
-        .fromTo(coin.current, { y: 0, x: 0}, {scale: 1}, "<")
-    }
+    gsap.set(riderLeftArm.current, { transformOrigin: "left" })
+    gsap.set(riderRightArm.current, { transformOrigin: "left" })
+    gsap.set(coin.current, { transformOrigin: "center" })
+    gsap.set(riderHead.current, { transformOrigin: "bottom center" })
+    wtl.to(riderLeftArm.current, { rotate: -30 })
+      .to(coin.current, { y: -215, x: -145 }, "<")
+      .to(coin.current, { scale: 0 }, "<50%")
+      .to(riderRightArm.current, { rotate: 90 })
+      .to(riderLeftArm.current, { rotate: 80 }, "<80%")
+      .to(riderHead.current, { rotate: 30 })
+      .to(riderHead.current, { rotate: 0 })
+      .to(riderLeftArm.current, { rotate: 0 }, "<")
+      .to(riderRightArm.current, { rotate: 0 }, "<")
+      .fromTo(coin.current, { y: 0, x: 0 }, { scale: 1 }, "<")
+  }
+  
+  // renders button that proceeds with transaction and toggles accordion
+  function ProceedAndToggle({ children, eventKey, purpose }) {
+    const proceedActions = useAccordionButton(eventKey, () => {
+      if (purpose === "deposit") {
+        handleDeposit()
+      } else if (purpose === "withdraw") {
+        handleWithdraw()
+      }
+    })
+
+    return (
+      <Button className="w-100" onClick={() => {
+        if (isValid) {
+          proceedActions()
+        }
+      }}>{children}</Button>
+    )
   }
 
   return (
@@ -148,7 +164,7 @@ function App() {
                       <Form.Control className="" onChange={processInput} type="text" />
                     </div>
                     <div className="col ps-0">
-                      <Button className="w-100" onClick={handleDeposit}>Deposit</Button>
+                      <ProceedAndToggle purpose="deposit" eventKey="0">Deposit</ProceedAndToggle>
                     </div>
                   </div>
                 </Form.Group>
@@ -167,7 +183,7 @@ function App() {
                       <Form.Control className="" onChange={processInput} type="text" />
                     </div>
                     <div className="col ps-0">
-                      <Button className="w-100" onClick={handleWithdraw}>Withdraw</Button>
+                      <ProceedAndToggle purpose="withdraw" eventKey="1">Withdraw</ProceedAndToggle>
                     </div>
                   </div>
                 </Form.Group>
